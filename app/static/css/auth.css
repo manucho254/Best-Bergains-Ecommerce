@@ -1,0 +1,16 @@
+.auth {
+  display: grid;
+  place-items: center;
+  margin: auto 0;
+}
+
+.auth .auth_form {
+  width: 300px;
+  padding: 10px;
+}
+
+.auth .auth_form input {
+}
+
+.auth .auth_form button {
+}

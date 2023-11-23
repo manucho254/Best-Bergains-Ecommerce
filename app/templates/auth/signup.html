@@ -1,0 +1,15 @@
+{% extends "base.html"%}
+{% block title %} SignUp {% endblock %}
+{% block content %}
+
+<div class="auth">
+    <form class="auth_form" method="POST" action="/auth/signup">
+        <input type="email" placeholder="Email" required>
+        <input type="text" placeholder="UserName" required>
+        <input type="password" placeholder="Password" required>
+        <input type="password" placeholder="Confirm Password" required>
+        <input type="submit" class="button" placeholder="Login">
+    </form>
+</div>
+
+{% endblock %}

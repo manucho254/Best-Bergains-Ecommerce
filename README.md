@@ -1,4 +1,4 @@
-#### Best Bergains Ecommerce
+#### Best Bargains Ecommerce
 
 
 ##### Help scripts
