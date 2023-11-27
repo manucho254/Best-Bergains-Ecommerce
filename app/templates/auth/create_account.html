@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %} Create Account {% endblock %}
+{% block content %}
+    <div class="auth">
+        <h3 class="">Choose what account you want to create</h3>
+        
+        <div class="d-flex gap-4">
+            <a class="create_button" href="{{ url_for('auth.customer_signup') }}">
+                Create Customer Account
+            </a>
+            <a class="create_button" href="{{ url_for('auth.merchant_signup') }}">
+                Create Merchant Account
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block title %} SignUp {% endblock %} {% block
+content %}
+
+<div class="auth">
+  <div>
+    <span>Customer SignUp</span>
+  </div>
+  <div class="auth_form">
+    <form method="POST" action="/auth/customer/signup">
+      <div class="auth_form_input">
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="example@gmail.com"
+          required
+        />
+      </div>
+      <div class="auth_form_input">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="John12" required />
+      </div>
+      <div class="auth_form_input">
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+      </div>
+      <div class="auth_form_input">
+        <label>Confirm Password</label>
+        <input
+          type="password"
+          name="confirm_password"
+          placeholder="Confirm Password"
+          required
+        />
+      </div>
+      <button type="submit" class="button">Signup</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

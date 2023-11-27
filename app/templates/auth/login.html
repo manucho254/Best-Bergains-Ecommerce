@@ -1,14 +1,43 @@
-{% extends "base.html"%}
-{% block title %} Login {% endblock %}
-
-{% block content %}
+{% extends "base.html"%} {% block title %} Login {% endblock %} {% block content
+%}
 
 <div class="auth">
-    <form class="auth_form" method="POST" action="/auth/signup">
-        <input type="email" placeholder="Email", required>
-        <input type="password" placeholder="Password", required>
-        <input type="submit" class="button" placeholder="Login">
+  {% if error %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ error }}.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endif %}
+  <div>
+    <span>Login</span>
+  </div>
+  <div class="auth_form">
+    <form method="POST" action="/auth/login">
+      <div class="auth_form_input">
+        <label>Email</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="example@gmail.com"
+          ,
+          required
+        />
+      </div>
+      <div class="auth_form_input">
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="******"
+          ,
+          required
+        />
+      </div>
+      <button type="submit" class="button">Login</button>
     </form>
+  </div>
 </div>
 
 {% endblock %}

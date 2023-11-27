@@ -1,10 +1,9 @@
-from config import app
-from flask import render_template
-from flask import Blueprint
+#!/usr/bin/python3
+from flask import Blueprint, render_template
 
-customers = Blueprint("", __name__)
+home = Blueprint("home", __name__)
 
-app.route("", methods=["GET"], strict_slashes=False)
+@home.route("/", methods=["GET"], strict_slashes=False)
 def home_page():
     """Landing page of the best bargains"""
 

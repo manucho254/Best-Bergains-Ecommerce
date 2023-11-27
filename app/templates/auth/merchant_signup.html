@@ -1,0 +1,98 @@
+{% extends "base.html"%} {% block title %} SignUp {% endblock %} {% block
+content %}
+
+<div class="auth">
+  <div>
+    <span>Merchant SignUp</span>
+  </div>
+  <div class="auth_form">
+    <form method="POST" action="/auth/merchant/signup">
+      <div class="d-flex gap-3">
+        <div>
+          <label>Email</label>
+          <input
+            class="form-control"
+            type="email"
+            name="email"
+            placeholder="example@gmail.com"
+            required
+          />
+        </div>
+        <div>
+          <label>Username</label>
+          <input
+            class="form-control"
+            type="text"
+            name="username"
+            placeholder="John12"
+            required
+          />
+        </div>
+      </div>
+      <div class="d-flex gap-3">
+        <div>
+          <label>First Name</label>
+          <input
+            class="form-control"
+            type="text"
+            name="first_name"
+            placeholder="John"
+            required
+          />
+        </div>
+        <div>
+          <label>Last Name</label>
+          <input
+            class="form-control"
+            type="text"
+            name="last_name"
+            placeholder="Doe"
+            required
+          />
+        </div>
+      </div>
+      <div class="d-flex gap-3">
+        <div>
+          <label>Country</label>
+          <input
+            class="form-control"
+            type="text"
+            name="country"
+            placeholder="Kenya"
+            required
+          />
+        </div>
+        <div>
+          <label>City</label>
+          <input
+            class="form-control"
+            type="text"
+            name="city"
+            placeholder="Nairobi"
+            required
+          />
+        </div>
+      </div>
+      <div class="auth_form_input">
+        <label>Phone</label>
+        <input type="text" name="phone" placeholder="+25470000000" required />
+      </div>
+      <div class="auth_form_input">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="******" required />
+      </div>
+      <div class="auth_form_input">
+        <label>Confirm Password</label>
+        <input
+          type="password"
+          name="confirm_password"
+          placeholder="******"
+          required
+        />
+      </div>
+      <button type="submit" class="button">Signup</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
