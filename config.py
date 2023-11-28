@@ -4,9 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
 
-from local_env import DB_URI, SECRET_KEY
+from load_env import DB_URI, SECRET_KEY
 
-from os import getenv
 
 # instantiate  SQLAlchemy
 db = SQLAlchemy()
@@ -31,18 +30,18 @@ def create_app():
     app.config["UPLOAD_PATH"] = "products_media"
 
     db.init_app(app)
-    
+
     login_manager.login_view = "auth.login"
     login_manager.session_protection = "strong"
     login_manager.login_message_category = "info"
     login_manager.init_app(app)
-    
+
     from app.views.home import home as home_blueprint
     from app.views.auth import auth as auth_blueprint
     from app.views.customer import customers as customers_blueprint
     from app.views.merchant import merchants as merchants_blueprint
     from app.views.product import products as products_blueprint
-    
+
     # blueprint for auth routes in our app
     app.register_blueprint(auth_blueprint)
     # blueprint for home routes in our app
@@ -53,5 +52,5 @@ def create_app():
     app.register_blueprint(merchants_blueprint)
     # blueprint for product routes in our app
     app.register_blueprint(products_blueprint)
-    
+
     return app

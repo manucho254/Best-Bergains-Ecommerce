@@ -2,15 +2,19 @@
 {% block title %} Create Account {% endblock %}
 {% block content %}
     <div class="auth">
-        <h3 class="">Choose what account you want to create</h3>
-        
         <div class="d-flex gap-4">
-            <a class="create_button" href="{{ url_for('auth.customer_signup') }}">
-                Create Customer Account
-            </a>
-            <a class="create_button" href="{{ url_for('auth.merchant_signup') }}">
-                Create Merchant Account
-            </a>
+            <div class="d-flex flex-column card p-5 gap-3">
+                <p class="h5"> Want to become a customer Best Bargains? </p>
+                <a class="btn-lg p-4 btn-dark text-light text-center" href="{{ url_for('auth.customer_signup') }}">
+                    Create Customer Account
+                </a>
+            </div>
+            <div class="d-flex flex-column card p-5 gap-3">
+                <p class="h5"> Want to become a seller in Best Bargains? </p>
+                <a class="btn-lg p-4 btn-dark text-light text-center" href="{{ url_for('auth.merchant_signup') }}">
+                    Create Merchant Account
+                </a>
+            </div>
         </div>
     </div>
 {% endblock %}

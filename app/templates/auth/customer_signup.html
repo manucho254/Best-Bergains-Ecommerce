@@ -2,13 +2,11 @@
 content %}
 
 <div class="auth">
-  <div>
-    <span>Customer SignUp</span>
-  </div>
   <div class="auth_form">
+    <h5 class="auth_form_title">Customer Signup</h5>
     <form method="POST" action="/auth/customer/signup">
       <div class="auth_form_input">
-        <label>Email</label>
+        <label>Email:</label>
         <input
           type="email"
           name="email"
@@ -17,11 +15,11 @@ content %}
         />
       </div>
       <div class="auth_form_input">
-        <label>Username</label>
+        <label>Username:</label>
         <input type="text" name="username" placeholder="John12" required />
       </div>
       <div class="auth_form_input">
-        <label>Password</label>
+        <label>Password:</label>
         <input
           type="password"
           name="password"
@@ -30,7 +28,7 @@ content %}
         />
       </div>
       <div class="auth_form_input">
-        <label>Confirm Password</label>
+        <label>Confirm Password:</label>
         <input
           type="password"
           name="confirm_password"
@@ -38,7 +36,13 @@ content %}
           required
         />
       </div>
-      <button type="submit" class="button">Signup</button>
+      <div class="d-flex flex-column">
+        <span>
+          Already a user?
+          <a class="text-dark " href="{{ url_for('auth.login') }}">Sign In</a>
+        </span>
+        <button type="submit" class="button mt-3">Signup</button>
+      </div>
     </form>
   </div>
 </div>

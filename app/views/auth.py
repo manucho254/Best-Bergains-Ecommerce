@@ -27,6 +27,8 @@ def merchant_signup():
     """Create a new user account"""
 
     if request.method == "GET":
+        if current_user.is_authenticated:
+            return redirect(url_for("products.get_products"))
         return render_template("auth/merchant_signup.html")
 
     error = None
@@ -90,6 +92,8 @@ def customer_signup():
     """Create a new user account"""
 
     if request.method == "GET":
+        if current_user.is_authenticated:
+            return redirect(url_for("products.get_products"))
         return render_template("auth/customer_signup.html")
 
     error = None
@@ -142,8 +146,10 @@ def customer_signup():
 @auth.route("/login", methods=["GET", "POST"], strict_slashes=False)
 def login():
     """Authenticate user"""
-
+    
     if request.method == "GET":
+        if current_user.is_authenticated:
+            return redirect(url_for("products.get_products"))
         return render_template("auth/login.html")
 
     error = None
@@ -152,18 +158,14 @@ def login():
 
     if email is None or password is None:
         error = "Invalid data provided!"
-        return redirect(url_for("auth.login"), error=error)
+        return redirect(url_for("auth.login"))
     if not validate_email(email):
         error = "Email provided not valid!"
-        return redirect(url_for("auth.login"), error=error)
+        return redirect(url_for("auth.login"))
     
-    print(email)
-    user = User.query.filter(
-        email == email
-    ).first()  # if this returns a user, then the email already exists in database
+    # if this returns a user, then the email already exists in database
+    user = User.query.filter_by(email=email).first()
     
-    print(user.merchant_id)
-    print(user.customer_id)
     if (
         not user
     ):  # if a user is found, we want to redirect back to signup page so user can try again
@@ -181,13 +183,10 @@ def login():
         return redirect(url_for("auth.login"))
 
 
-@auth.route("/logout", methods=["GET", "POST"], strict_slashes=False)
+@auth.route("/logout", methods=["GET"], strict_slashes=False)
 @login_required
 def logout():
     """Logout user"""
-    
-    if request.method == "GET":
-        return render_template("auth/logout.html")
     
     user = current_user
     user.authenticated = False

@@ -1,6 +1,33 @@
-{% extends "base.html" %}
-{% block title %} {{ product.title }} {% endblock %}
-
+{% extends "base.html" %} {% block title %} {{ product.title }} {% endblock %}
 {% block content %}
 
+{% include "header.html" %}
+
+<div class="container d-flex justify-space-between m-4">
+    <div class="w-50">
+        <img class="img-fluid"
+        src="{{ url_for('static', filename='images/tv.jpg') }}"
+        alt="Image 1"
+        />
+    </div>
+    <div class="w-50 p-5 d-flex flex-column gap-3">
+        <h3>{{ product.title }}</h3>
+        <h5>{{ product.price }}</h5>
+
+        <div class="d-flex flex-column">
+            <h4 class="border-bottom">Description</h4>
+            <p>{{ product.description }}</p>
+        </div>
+
+        <div class="quantity">
+            <span class="minus">-</span>
+            <input type="text" value="1"/>
+            <span class="plus">+</span>
+        </div>
+        <button class="btn btn-large border-2 bg-black w-25 text-light">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
+{% include "footer.html" %}
 {% endblock %}

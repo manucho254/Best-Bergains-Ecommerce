@@ -2,14 +2,12 @@
 content %}
 
 <div class="auth">
-  <div>
-    <span>Merchant SignUp</span>
-  </div>
-  <div class="auth_form">
+  <div class="auth_form mt-5">
+    <h5 class="auth_form_title">Merchant SignUp</h5>
     <form method="POST" action="/auth/merchant/signup">
       <div class="d-flex gap-3">
         <div>
-          <label>Email</label>
+          <label>Email:</label>
           <input
             class="form-control"
             type="email"
@@ -19,7 +17,7 @@ content %}
           />
         </div>
         <div>
-          <label>Username</label>
+          <label>Username:</label>
           <input
             class="form-control"
             type="text"
@@ -31,7 +29,7 @@ content %}
       </div>
       <div class="d-flex gap-3">
         <div>
-          <label>First Name</label>
+          <label>First Name:</label>
           <input
             class="form-control"
             type="text"
@@ -41,7 +39,7 @@ content %}
           />
         </div>
         <div>
-          <label>Last Name</label>
+          <label>Last Name:</label>
           <input
             class="form-control"
             type="text"
@@ -53,7 +51,7 @@ content %}
       </div>
       <div class="d-flex gap-3">
         <div>
-          <label>Country</label>
+          <label>Country:</label>
           <input
             class="form-control"
             type="text"
@@ -63,7 +61,7 @@ content %}
           />
         </div>
         <div>
-          <label>City</label>
+          <label>City:</label>
           <input
             class="form-control"
             type="text"
@@ -74,15 +72,15 @@ content %}
         </div>
       </div>
       <div class="auth_form_input">
-        <label>Phone</label>
+        <label>Phone:</label>
         <input type="text" name="phone" placeholder="+25470000000" required />
       </div>
       <div class="auth_form_input">
-        <label>Password</label>
+        <label>Password:</label>
         <input type="password" name="password" placeholder="******" required />
       </div>
       <div class="auth_form_input">
-        <label>Confirm Password</label>
+        <label>Confirm Password:</label>
         <input
           type="password"
           name="confirm_password"
@@ -90,7 +88,13 @@ content %}
           required
         />
       </div>
-      <button type="submit" class="button">Signup</button>
+      <div class="d-flex flex-column">
+        <span>
+          Already a user?
+          <a class="text-dark " href="{{ url_for('auth.login') }}">Sign In</a>
+        </span>
+        <button type="submit" class="button mt-3">Signup</button>
+      </div>
     </form>
   </div>
 </div>

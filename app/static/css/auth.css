@@ -13,24 +13,38 @@
   gap: 10px;
   width: 500px;
   padding: 20px;
-  border: 1px solid grey;
+  border: 1px solid rgb(198, 196, 196);
   border-radius: 5px;
-  background-color: aquamarine;
+  background-color: rgb(255, 255, 255);
+  color: rgb(18, 18, 18);
 }
+
+.auth .auth_form .auth_form_title{
+  border-bottom: 1px solid rgb(82, 80, 80);
+  padding: 5px;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(18, 18, 18);
+}
+
 
 .auth .auth_form form .auth_form_input {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  padding: 5px 5px;
 }
 
 .auth .auth_form form .auth_form_input input {
+  margin-bottom: 10px;
   height: 40px;
   border-radius: 5px;
+  padding: 5px;
 }
 
 .auth .auth_form form button {
-  padding: 10px; 
+  padding: 10px;
   width: 50%;
   background-color: rgb(35, 33, 33);
   color: aliceblue;

@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from flask import Blueprint, render_template, request
 
 from app.models.customer import Customer
+from app.models.user import User
 from app.models.order import Order
 
 from app.utils.decorators import is_customer
@@ -19,12 +20,11 @@ def get_customer(customer_id):
     Args:
         customer_id (string): customer id
     """
-    
-    customer = Customer.query.filter(customer_id == customer_id).first()
+    customer = Customer.query.filter_by(id=customer_id).first()
     return render_template("customer/customer.html", customer=customer)
 
 
-@customers.route("/<customer_id>", methods=["PUT"], strict_slashes=False)
+@customers.route("/<customer_id>/update", methods=["POST"], strict_slashes=False)
 @login_required
 @is_customer
 def update_customer(customer_id):
@@ -32,10 +32,10 @@ def update_customer(customer_id):
     Args:
         customer_id (string): customer id
     """
-    return render_template("customer/customer_detail.html")
+    return render_template("customer/customer_update.html")
 
 
-@customers.route("/<customer_id>", methods=["DELETE"], strict_slashes=False)
+@customers.route("/<customer_id>/delete", methods=["POST"], strict_slashes=False)
 @login_required
 @is_customer
 def delete_customer(customer_id):
@@ -56,7 +56,7 @@ def customer_orders(customer_id):
     """
     page = request.args.get("page", default=1, type=int)
     orders = (
-        Order.query.filter(customer_id == customer_id)
+        Order.query.filter_by(customer_id=customer_id)
         .order_by(Order.created_at)
         .paginate(page=page, per_page=15)
     )

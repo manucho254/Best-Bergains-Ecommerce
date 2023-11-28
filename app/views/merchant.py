@@ -23,7 +23,7 @@ def get_merchant(merchant_id):
         merchant_id (string): merchant id
         product_id (string): product id
     """
-    merchant = Merchant.query.filter(merchant_id=merchant_id).first()
+    merchant = Merchant.query.filter(id=merchant_id).first()
     return render_template("merchant/merchant.html", merchant=merchant)
 
 
@@ -74,7 +74,7 @@ def merchant_order(merchant_id, order_id):
     """
     page = request.args.get("page", default=1, type=int)
     orders = (
-        Order.query.filter_by(db.and_(merchant_id == merchant_id, id == order_id))
+        Order.query.filter(db.and_(merchant_id == merchant_id, id == order_id))
         .order_by(Order.created_at)
         .paginate(page=page, per_page=15)
     )
@@ -102,19 +102,84 @@ def merchant_products(merchant_id):
     return render_template("merchant/merchant_products.html", products=products)
 
 
-@merchants.route(
-    "/<merchant_id>/products/<product_id>", methods=["GET"], strict_slashes=False
-)
-@is_merchant
+@merchants.route("/<merchant_id>/products/add", methods=["GET", "POST"], strict_slashes=False)
 @login_required
-def merchant_product(merchant_id, product_id):
-    """Get merchant single product
+@is_merchant
+def merchant_products(merchant_id):
+    """Get merchant products
     Args:
         merchant_id (string): merchant id
-        product_id (string): product id
     """
+    page = request.args.get("page", default=1, type=int)
+    query = request.args.get("query", default="", type=str)
 
-    product = Product.query.filter(
-        db.and_(merchant_id == merchant_id, id == product_id)
-    ).first()
-    return render_template("merchant/merchant_products.html", product=product)
+    products = (
+        Product.query.filter(
+            merchant_id == merchant_id, Product.title.ilike(r"%{}%".format(query))
+        )
+        .order_by(Product.created_at)
+        .paginate(page=page, per_page=15)
+    )
+    return render_template("merchant/merchant_products.html", products=products)
+
+@merchants.route("/<merchant_id>/products/<product_id>/update", methods=["GET", "POST"], strict_slashes=False)
+@login_required
+@is_merchant
+def merchant_products(merchant_id, product_id):
+    """Get merchant products
+    Args:
+        merchant_id (string): merchant id
+    """
+    page = request.args.get("page", default=1, type=int)
+    query = request.args.get("query", default="", type=str)
+
+    products = (
+        Product.query.filter(
+            merchant_id == merchant_id, Product.title.ilike(r"%{}%".format(query))
+        )
+        .order_by(Product.created_at)
+        .paginate(page=page, per_page=15)
+    )
+    return render_template("merchant/merchant_products.html", products=products)
+
+
+@merchants.route("/<merchant_id>/products/<product_id>/delete", methods=["POST"], strict_slashes=False)
+@login_required
+@is_merchant
+def merchant_products(merchant_id, product_id):
+    """Delete merchant product
+    Args:
+        merchant_id (string): merchant id
+    """
+    page = request.args.get("page", default=1, type=int)
+    query = request.args.get("query", default="", type=str)
+
+    products = (
+        Product.query.filter(
+            merchant_id == merchant_id, Product.title.ilike(r"%{}%".format(query))
+        )
+        .order_by(Product.created_at)
+        .paginate(page=page, per_page=15)
+    )
+    return render_template("merchant/merchant_products.html", products=products)
+
+
+@merchants.route("/<merchant_id>/customers", methods=["DELETE"], strict_slashes=False)
+@login_required
+@is_merchant
+def merchant_products(merchant_id):
+    """Get merchant customers
+    Args:
+        merchant_id (string): merchant id
+    """
+    page = request.args.get("page", default=1, type=int)
+    query = request.args.get("query", default="", type=str)
+
+    products = (
+        Product.query.filter(
+            merchant_id == merchant_id, Product.title.ilike(r"%{}%".format(query))
+        )
+        .order_by(Product.created_at)
+        .paginate(page=page, per_page=15)
+    )
+    return render_template("merchant/merchant_products.html", products=products)

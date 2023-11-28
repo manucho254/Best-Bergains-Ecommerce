@@ -1,3 +1,28 @@
-<header>
-    some navbar
-</header>
+<nav>
+  <label class="logo">Best<b style="color: white">Bargains</b></label>
+  <form class="search" method="GET" action="{{ url_for('products.get_products') }}">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="What are you looking for?"
+      name="query"
+      value = "{{ query }}"
+    />
+    <button type="submit" class="search-button">Search</button>
+  </form>
+
+  <ul>
+    <li><a class="active" href="{{ url_for("products.get_products") }}">Home</a></li>
+    <li><a href="{{ url_for("products.get_products") }}">Shop</a></li>
+    <li><a href=""><i class="fa-solid fa-cart-shopping"></i></a></li>
+    {% if current_user.is_authenticated %}
+      {% if current_user.is_merchant %}
+        <li><a href="{{ url_for('merchant.get_merchant', merchant_id=current_user.merchant_id)}}">{{ current_user.username }}</a></li>
+      {% else %}
+        <li><a href="{{ url_for('customer.get_customer', customer_id=current_user.customer_id)}}">{{ current_user.username }}</a></li>
+      {% endif %}
+    {% else %}
+        <li><a href="{{  url_for("auth.login") }}">Sign In</a></li>
+    {% endif %}
+  </ul>
+</nav>

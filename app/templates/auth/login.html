@@ -10,13 +10,11 @@
     </button>
   </div>
   {% endif %}
-  <div>
-    <span>Login</span>
-  </div>
   <div class="auth_form">
+    <h5 class="auth_form_title">Login</h5>
     <form method="POST" action="/auth/login">
       <div class="auth_form_input">
-        <label>Email</label>
+        <label>Email:</label>
         <input
           type="email"
           name="email"
@@ -26,7 +24,7 @@
         />
       </div>
       <div class="auth_form_input">
-        <label>Password</label>
+        <label>Password:</label>
         <input
           type="password"
           name="password"
@@ -35,7 +33,13 @@
           required
         />
       </div>
-      <button type="submit" class="button">Login</button>
+      <div class="d-flex flex-column">
+        <span>
+          Don't have an account yet ?
+          <a class="text-dark" href="{{ url_for('auth.create_account') }}">Sign Up</a>
+        </span>
+        <button type="submit" class="button mt-3">Login</button>
+      </div>
     </form>
   </div>
 </div>
