@@ -23,6 +23,9 @@ class Order(db.Model):
     customer_id = db.Column(
         db.String(100), db.ForeignKey("customers.id"), nullable=False
     )
+    merchant_id = db.Column(
+        db.String(100), db.ForeignKey("merchants.id")
+    )
     order_items = db.relationship(
         "Item",
         secondary=items,

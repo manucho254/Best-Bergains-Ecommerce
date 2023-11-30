@@ -1,5 +1,40 @@
 {% extends "base.html" %}
-{% block title %} Orders {% endblock %}
+{% block title %} Merchant Orders {% endblock %}
 {% block content %}
+
+<div class="d-flex gap-4">
+    {% include "merchant/sidebar.html" %}
+    <div class="mt-4 w-100 px-1">
+        <p class="h4 font-weight-bold">Orders</p>
+        <div class="w-100 table-responsive h-75">
+            <table class="table table-striped h-50">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Order Id</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if orders|length > 0 %}
+                    {% for order in orders %}
+                        <tr>
+                            <th scope="row">{{ idx }}</th>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.total }}</td>
+                            <td>{{ order.created_at }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <th scope="row">You have not made any orders yet.</th>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

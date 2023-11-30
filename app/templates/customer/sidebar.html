@@ -4,24 +4,36 @@
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-    <li class="nav-item">
-       <a href="" class="nav-link active" aria-current="page">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-          Home
-       </a>
-    </li>
     <li>
-       <a href="" class="nav-link link-dark">
+        {% if request.endpoint  == 'customer.get_customer' %}
+            <a href="{{ url_for('customer.get_customer', customer_id=current_user.customer_id) }}" class="nav-link link-dark active">
+        {% else %}
+            <a href="{{ url_for('customer.get_customer', customer_id=current_user.customer_id) }}" class="nav-link link-dark">
+        {% endif %}
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
           Dashboard
        </a>
     </li>
     <li>
-       <a href="{{ url_for('customer.customer_orders', customer_id=current_user.customer_id) }}" class="nav-link link-dark">
+        {% if request.endpoint  == 'customer.customer_orders' %}
+            <a href="{{ url_for('customer.customer_orders', customer_id=current_user.customer_id) }}" class="nav-link link-dark active"> 
+        {% else %}
+            <a href="{{ url_for('customer.customer_orders', customer_id=current_user.customer_id) }}" class="nav-link link-dark">
+        {% endif %}
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
           Orders
        </a>
     </li>
+    <li>
+        {% if request.endpoint  == 'customer.update_customer' %}
+            <a href="{{ url_for('customer.update_customer', customer_id=current_user.customer_id) }}" class="nav-link link-dark active"> 
+        {% else %}
+            <a href="{{ url_for('customer.update_customer', customer_id=current_user.customer_id) }}" class="nav-link link-dark">
+        {% endif %}
+           <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+           Profile
+        </a>
+     </li>
     </ul>
     <hr>
     <div class="dropdown">
@@ -30,8 +42,6 @@
        <strong>{{ current_user.username }}</strong>
     </a>
     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-       <li><a class="dropdown-item" href="">Settings</a></li>
-       <li><a class="dropdown-item" href="">Profile</a></li>
        <li><hr class="dropdown-divider"></li>
        <li><a class="dropdown-item" href="{{ url_for("auth.logout") }}">Sign out</a></li>
     </ul>

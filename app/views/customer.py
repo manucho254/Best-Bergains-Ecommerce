@@ -1,13 +1,17 @@
 #!/usr/bin/python3
 
 from flask_login import login_required, current_user
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 
 from app.models.customer import Customer
 from app.models.user import User
 from app.models.order import Order
-
+from app.models.address import Address
 from app.utils.decorators import is_customer
+from app.utils.constants import USER_FIELDS, ADDRESS_FIELDS
+
+from config import db
+
 
 customers = Blueprint("customer", __name__, url_prefix="/customer")
 
@@ -24,7 +28,7 @@ def get_customer(customer_id):
     return render_template("customer/customer.html", customer=customer)
 
 
-@customers.route("/<customer_id>/update", methods=["POST"], strict_slashes=False)
+@customers.route("/<customer_id>/update", methods=["GET", "POST"], strict_slashes=False)
 @login_required
 @is_customer
 def update_customer(customer_id):
@@ -32,7 +36,32 @@ def update_customer(customer_id):
     Args:
         customer_id (string): customer id
     """
-    return render_template("customer/customer_update.html")
+    customer = Customer.query.filter_by(id=customer_id).first()
+    
+    if request.method == "GET":
+        return render_template("customer/customer_update.html", customer=customer)
+    
+    address = Address()
+    for name in USER_FIELDS:
+        if request.form.get(name) is not None:
+            setattr(customer.user, name, request.form.get(name))
+            
+    for name in ADDRESS_FIELDS:
+        if request.form.get(name) is not None:
+            if customer.customer_address:
+                setattr(customer.customer_address, name, request.form.get(name))
+            else:
+                setattr(address, name, request.form.get(name))
+                
+    if customer.customer_address is None:
+        db.session.add(address)
+        setattr(customer, "customer_address", address)
+        
+    db.session.add(customer)
+    db.session.commit()
+    flash("Customer updated successfully.")
+    return redirect(url_for('customer.update_customer', customer_id=customer.id))
+    
 
 
 @customers.route("/<customer_id>/delete", methods=["POST"], strict_slashes=False)

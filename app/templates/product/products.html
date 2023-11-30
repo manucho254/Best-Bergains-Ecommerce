@@ -23,9 +23,14 @@ content %} {% include "header.html" %}
             href="{{ url_for('products.get_product', product_id=product.id)}}"
           >
             <img
-              src="{{ url_for('static', filename='images/tv.jpg') }}"
+              {% if product.images == None %}
+                src="{{ url_for('static', filename='images/tv.jpg') }}"
+              {% else %}
+                src="{{ url_for('media', filename=product.images.file_path) }}"
+              {% endif %}
               alt="Image 1"
             />
+            {{ product.images[0] }}
             <p>{{ product.title }}</p>
             <p>{{ product.price }}</p>
           </a>

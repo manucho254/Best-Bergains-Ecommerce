@@ -4,13 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Best bargains - {% block title %}{% endblock %}</title>
-    {% with messages = get_flashed_messages() %} {% if messages %}
-    <ul class="flashes">
-      {% for message in messages %}
-      <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %} {% endwith %}
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/auth.css') }}"
@@ -34,6 +27,20 @@
     />
   </head>
   <body>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-bs-autohide="true">
+          <div class="toast-header">
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">
+            {% for message in messages %}
+              <p>{{ message }}</p>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %} 
+    {% endwith %}
     {% block content %}{% endblock%}
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

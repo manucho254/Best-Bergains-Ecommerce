@@ -1,5 +1,77 @@
 {% extends "base.html" %}
-{% block title %} Products {% endblock %}
+{% block title %} Products {% endblock %} 
 {% block content %}
 
+<div class="d-flex gap-4">
+  {% include "merchant/sidebar.html" %}
+  <div class="mt-4 w-100 px-3">
+    <div class="d-flex justify-content-between mb-3">
+        <p class="h4 font-weight-bold mb-3">Products</p>
+        <a class="btn p-2 active text-light" 
+        href="{{ url_for('merchant.merchant_add_product', merchant_id=current_user.merchant_id) }}">
+            Add Product
+        </a>
+    </div>
+    <div class="w-100 table-responsive h-75">
+      <table class="table table-striped h-50">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Product Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Date</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody class="h-50">
+          {% if products.total > 0 %}
+            {% for product in products %}
+                <tr>
+                    <th scope="row">{{ count }}</th>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.title }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.created_at }}</td>
+                    <td
+                    class="d-flex gap-2 justify-content-center h-100 align-items-center"
+                    >
+                    <a href="{{ url_for('merchant.merchant_update_product', merchant_id=current_user.merchant_id, product_id=product.id) }}">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="{{ url_for('merchant.merchant_delete_product', merchant_id=current_user.merchant_id, product_id=product.id) }}">
+                        <i class="fa-solid fa-trash">
+                    </i></a>
+                    </td>
+                </tr>
+            {% endfor %} 
+            {% else %}
+            <tr>
+                <th scope="row">You have not made any products yet.</th>
+            </tr>
+            {% endif %}
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-end">
+        <div aria-label="Page navigation example">
+          <ul class="pagination">
+            {% for page in products.iter_pages() %}
+            {% if page %}
+              {% if page != products.page %}
+                <li class="page-item mx-1">
+                  <a class="page-link" href="{{ url_for('merchant.merchant_products', merchant_id=current_user.merchant_id, page=page) }}">{{ page }}</a>
+                </li>
+              {% else %}
+                <li class="page-item active" aria-current="page">
+                  <a class="page-link">{{ page }}</a>
+                </li>
+              {% endif %}
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+  </div>
+</div>
 {% endblock %}

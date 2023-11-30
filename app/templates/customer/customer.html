@@ -1,12 +1,18 @@
-{% extends "base.html" %}
-{% block title %} Account {% endblock %}
+{% extends "base.html" %} {% block title %}Customer Account {% endblock %}
 {%block content %}
 
 <div class="d-flex gap-4">
-   {% include "customer/sidebar.html" %}
-   <div class="overflow-y-scroll m-5">
-      Welcome {{ current_user.username }}
-   </div>
+  {% include "customer/sidebar.html" %}
+  <div class="mt-4 w-75">
+    Welcome {{ current_user.username }}
+
+    <div class="d-flex gap-5 m-5">
+      <div class="card active text-light card-total">
+        <div class="card-header">Orders</div>
+        <div class="card-body text-center font-50">0</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

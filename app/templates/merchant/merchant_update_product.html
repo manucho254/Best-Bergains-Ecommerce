@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %} Update Product {% endblock %}
+
+{% block content %}
+<div class="d-flex gap-4">
+    {% include "merchant/sidebar.html" %}
+    <div class="mt-4 w-75">
+        <p class="bold h4 font-weight-bold mb-4">Update Product</p>
+        <div class="card h-auto p-5">
+            <form class="w-100"
+                method="POST"
+                enctype="multipart/form-data"
+                action="{{ url_for('merchant.merchant_update_product', merchant_id=merchant.id, product_id=product.id)}}"
+            >
+                <h5 class="mb-3 pb-3 border-bottom"> Product Info </h5>
+                <div class="d-flex gap-3 flex-column">
+                    <div class="info-input w-100">
+                        <label>Title:</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="title"
+                          placeholder="Hisense tv"
+                          {% if product.title %}
+                            value="{{ product.title }}"
+                          {% endif %}
+                        />
+                    </div>
+                    <div class="info-input w-100">
+                        <label>Description:</label>
+                        <textarea name="description" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="info-input w-100">
+                        <label>Price:</label>
+                        <input
+                          class="form-control"
+                          type="number"
+                          name="price"
+                          placeholder="20"
+                          {% if product.price %}
+                            value="{{ product.price }}"
+                          {% endif %}
+                        />
+                    </div>
+                  </div>
+                  <h5 class="mb-3 mt-3 pb-3 border-bottom"> Product Image</h5>
+                  <div class="d-flex gap-3">
+                    <div class="info-input w-100">
+                        <img
+                            {% if product.images == None %}
+                            src="{{ url_for('static', filename='images/tv.jpg') }}"
+                            {% else %}
+                            src="{{ url_for('media', filename=product.images.file_path) }}"
+                            {% endif %}
+                            alt="Image 1"
+                            class="img-fluid w-25"
+                        />
+                        <div>
+                            <label class="mb-2">Image:</label>
+                            <input
+                                class="form-control"
+                                type="file"
+                                name="product_image"
+                            />
+                        </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn mt-3 active text-light">Update</button>
+                  </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

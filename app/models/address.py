@@ -29,4 +29,4 @@ class Address(db.Model):
 
     def __repr__(self) -> str:
         """ """
-        return "Customer: {}".format(self.id)
+        return "Address: {}".format(self.id)

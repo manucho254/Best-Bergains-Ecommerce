@@ -2,4 +2,40 @@
 {% block title %} Orders {% endblock %}
 {% block content %}
 
+<div class="d-flex gap-4">
+    {% include "customer/sidebar.html" %}
+    <div class="mt-4 w-100 px-3">
+        <div>
+            <p class="h4 font-weight-bold">Orders</p>
+        </div>
+        <div class="w-100 table-responsive h-75">
+            <table class="table table-striped h-50">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Order Id</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if orders.total > 0 %}
+                    {% for count, order in orders %}
+                        <tr>
+                            <th scope="row">{{ count }}</th>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.total }}</td>
+                            <td>{{ order.created_at }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <th scope="row">You have not made any orders yet.</th>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

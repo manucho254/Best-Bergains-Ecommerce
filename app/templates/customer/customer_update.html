@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block title %} Update Customer Account {% endblock %}
+
+{% block content %}
+<div class="d-flex gap-4">
+    {% include "customer/sidebar.html" %}
+    <div class="mt-4 w-75">
+        <p class="bold h4 text-center mb-4">Update Customer Information</p>
+        <div class="card h-auto p-5">
+            <form class="w-100" method="POST" action="{{ url_for('customer.update_customer', customer_id=customer.id)}}">
+                <h5 class="mb-3 pb-3 border-bottom"> User Information </h5>
+                <div class="d-flex gap-3 flex-wrap ">
+                    <div class="info-input">
+                        <label>First Name:</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="first_name"
+                          placeholder="John"
+                          {% if customer.user.first_name %}
+                            value="{{ customer.user.first_name }}"
+                          {% endif %}
+                        />
+                    </div>
+                    <div class="info-input">
+                        <label>Last Name:</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="last_name"
+                          placeholder="Doe"
+                          {% if customer.user.last_name %}
+                          value="{{ customer.user.last_name }}"
+                        {% endif %}
+                        />
+                    </div>
+                  </div>
+                  <h5 class="mb-3 mt-3 pb-3 border-bottom"> Customer Address</h5>
+                  <div class="d-flex gap-3 flex-wrap">
+                    <div class="info-input">
+                      <label>Country:</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="country"
+                        placeholder="Kenya"
+                        {% if customer.customer_address.country %}
+                            value="{{ customer.customer_address.country }}"
+                        {% endif %}
+                      />
+                    </div>
+                    <div class="info-input">
+                      <label>City:</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="city"
+                        placeholder="Nairobi"
+                        {% if customer.customer_address.city %}
+                            value="{{ customer.customer_address.city }}"
+                        {% endif %}
+                      />
+                    </div>
+                    <div class="info-input">
+                        <label>Phone:</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="phone"
+                            placeholder="+25470000000"
+                            {% if customer.customer_address.phone %}
+                                value="{{ customer.customer_address.phone }}"
+                            {% endif %} 
+                        />
+                    </div>
+                    <div class="info-input">
+                        <label>Address Line 1:</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="address_line_1"
+                            placeholder="Street 1"  
+                            {% if customer.customer_address.address_line_1 %}
+                                value="{{ customer.customer_address.address_line_1 }}"
+                            {% endif %}
+                        />
+                    </div>
+                    <div class="info-input">
+                        <label>Address Line 2:</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="address_line_1"
+                            placeholder="Street 2"
+                            {% if customer.customer_address.address_line_2 %}
+                            value="{{ customer.customer_address.address_line_2 }}"
+                        {% endif %}
+                        />
+                    </div>
+                    <div class="info-input">
+                        <label>Zipcode:</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="zip_code"
+                            placeholder="P.O Box 000"
+                            {% if customer.customer_address.zip_code %}
+                                value="{{ customer.customer_address.zip_code }}"
+                            {% endif %}
+                        />
+                    </div>
+                  </div>
+                  <button type="submit" class="btn mt-3 active text-light">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

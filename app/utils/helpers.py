@@ -4,6 +4,15 @@
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
 
+from app.utils.constants import MEDIA_PATH
+from app.utils.validations import validate_extension
+
+from app.models.product import ProductImage
+
+import uuid
+import os
+from datetime import datetime
+
 HASHER = PasswordHasher()
 
 
@@ -28,3 +37,34 @@ def verify_password(password: str, password_hash: str) -> bool:
         return True
     except VerifyMismatchError:
         return False
+
+
+def process_image(file) -> dict:
+    """ Image processing function for uploaded images
+        Args:
+            file (file object): file object to process
+        Returns:
+            dict: an empty dict if file is not valid else return path and name of file
+    """
+    if not validate_extension(file.filename):
+        return {}
+
+    timestamp = datetime.now().strftime("%d-%m-%Y")
+    # rename file using uuid
+    new_filename = "{}.{}".format(str(uuid.uuid4()), file.filename.split(".")[-1])
+
+    # check if file path exists
+    if not os.path.exists(MEDIA_PATH):
+        os.mkdir(MEDIA_PATH)
+
+    current_date_path = os.path.join(MEDIA_PATH, "products", timestamp)
+    if not os.path.exists(current_date_path):
+        os.mkdir(current_date_path)
+
+    abs_path = os.path.join(current_date_path, new_filename)
+    file.save(abs_path)
+
+    # path where file is stored
+    path_to_file = os.path.join("products", timestamp, new_filename).replace("\\", "/")
+
+    return {"name": new_filename, "path": path_to_file}

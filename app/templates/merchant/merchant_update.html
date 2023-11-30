@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block title %} Update Merchant Account {% endblock %}
+
+{% block content %}
+<div class="d-flex gap-4">
+    {% include "merchant/sidebar.html" %}
+    <div class="mt-4 w-75">
+        <p class="bold h4 font-weight-bold mb-4">Update Merchant Information</p>
+        <div class="card h-auto p-5">
+            <form class="w-100" method="POST" action="{{ url_for('merchant.update_merchant', merchant_id=merchant.id)}}">
+                <h5 class="mb-3 pb-3 border-bottom"> User Information </h5>
+                <div class="d-flex gap-3 flex-wrap ">
+                    <div class="info-input">
+                        <label>First Name:</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="first_name"
+                          placeholder="John"
+                          {% if merchant.user.first_name %}
+                            value="{{ merchant.user.first_name }}"
+                          {% endif %}
+                        />
+                    </div>
+                    <div class="info-input">
+                        <label>Last Name:</label>
+                        <input
+                          class="form-control"
+                          type="text"
+                          name="last_name"
+                          placeholder="Doe"
+                          {% if merchant.user.last_name %}
+                          value="{{ merchant.user.last_name }}"
+                        {% endif %}
+                        />
+                    </div>
+                  </div>
+                  <h5 class="mb-3 mt-3 pb-3 border-bottom"> merchant Address</h5>
+                  <div class="d-flex gap-3 flex-wrap">
+                    <div class="info-input">
+                      <label>Country:</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="country"
+                        placeholder="Kenya"
+                        {% if merchant.merchant_address.country %}
+                            value="{{ merchant.merchant_address.country }}"
+                        {% endif %}
+                      />
+                    </div>
+                    <div class="info-input">
+                      <label>City:</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="city"
+                        placeholder="Nairobi"
+                        {% if merchant.merchant_address.city %}
+                            value="{{ merchant.merchant_address.city }}"
+                        {% endif %}
+                      />
+                    </div>
+                    <div class="info-input">
+                        <label>Phone:</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="phone"
+                            placeholder="+25470000000"
+                            {% if merchant.merchant_address.phone %}
+                                value="{{ merchant.merchant_address.phone }}"
+                            {% endif %} 
+                        />
+                    </div>
+                    <div class="info-input">
+                        <label>Address Line 1:</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="address_line_1"
+                            placeholder="Street 1"  
+                            {% if merchant.merchant_address.address_line_1 %}
+                                value="{{ merchant.merchant_address.address_line_1 }}"
+                            {% endif %}
+                        />
+                    </div>
+                    <div class="info-input">
+                        <label>Address Line 2:</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="address_line_1"
+                            placeholder="Street 2"
+                            {% if merchant.merchant_address.address_line_2 %}
+                            value="{{ merchant.merchant_address.address_line_2 }}"
+                        {% endif %}
+                        />
+                    </div>
+                    <div class="info-input">
+                        <label>Zipcode:</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="zip_code"
+                            placeholder="P.O Box 000"
+                            {% if merchant.merchant_address.zip_code %}
+                                value="{{ merchant.merchant_address.zip_code }}"
+                            {% endif %}
+                        />
+                    </div>
+                  </div>
+                  <button type="submit" class="btn mt-3 active text-light">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

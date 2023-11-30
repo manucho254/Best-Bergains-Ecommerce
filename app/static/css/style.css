@@ -242,7 +242,19 @@ span {
   vertical-align: middle;
 }
 
-
 .active {
   background-color: green !important;
+}
+
+.info-input {
+  width: 45%;
+}
+
+.font-50 {
+  font-size: 50px;
+}
+
+.card-total {
+  width: 300px;
+  height: 200px;
 }

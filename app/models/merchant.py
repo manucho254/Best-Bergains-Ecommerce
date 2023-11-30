@@ -14,17 +14,13 @@ class Merchant(db.Model):
     id = db.Column(db.String(100), primary_key=True, default=str(uuid4()))
     user = db.relationship("User", backref="merchants", lazy=True, uselist=False)
     merchant_address = db.relationship(
-        "Address",
-        backref="merchants",
-        lazy=True,
-        uselist=False
+        "Address", backref="merchants", lazy=True, uselist=False
     )
-    product_id = db.Column(
-        db.String(100), db.ForeignKey("products.id")
-    )
+    products = db.relationship("Product", backref="merchants", lazy=True)
+    merchant_orders = db.relationship("Order", backref="merchants", lazy=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self) -> str:
         """ """
-        return "Customer: {}".format(self.id)
+        return "Merchant: {}".format(self.id)

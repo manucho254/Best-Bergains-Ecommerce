@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, current_user, logout_user, login_required
 
 from app.utils.validations import validate_email
@@ -9,6 +9,7 @@ from app.models.address import Address
 from app.models.customer import Customer
 from app.models.merchant import Merchant
 from app.utils.helpers import hash_password, verify_password
+from app.utils.constants import USER_FIELDS, ADDRESS_FIELDS
 
 from config import db, login_manager
 
@@ -34,11 +35,6 @@ def merchant_signup():
     error = None
     email = request.form.get("email")
     user_name = request.form.get("username")
-    first_name = request.form.get("first_name")
-    last_name = request.form.get("last_name")
-    country = request.form.get("country")
-    city = request.form.get("city")
-    phone = request.form.get("phone")
     password = request.form.get("password")
     confirm_password = request.form.get("confirm_password")
 
@@ -48,17 +44,17 @@ def merchant_signup():
         or password is None
         or confirm_password is None
     ):
-        error = "Invalid data provided"
-        return redirect(url_for("auth.merchant_signup"), error=error)
+        flash("Invalid data provided", "error")
+        return redirect(url_for("auth.merchant_signup"))
     if not validate_email(email):
-        error = "Email provided not valid!"
-        return redirect(url_for("auth.merchant_signup"), error=error)
+        flash("Email provided not valid!", "error")
+        return redirect(url_for("auth.merchant_signup"))
     if password != confirm_password:
-        error = "Password and confirm password don't match."
-        return redirect(url_for("auth.merchant_signup"), error=error)
+        flash("Password and confirm password don't match.", "error")
+        return redirect(url_for("auth.merchant_signup"))
     if len(password) < 6:
-        error = "Password too short."
-        return redirect(url_for("auth.merchant_signup"), error=error)
+        flash("Password too short.", "error")
+        return redirect(url_for("auth.merchant_signup"))
 
     user = User.query.filter_by(
         email=email
@@ -68,22 +64,24 @@ def merchant_signup():
         user
     ):  # if a user is found, we want to redirect back to signup page so user can try again
         return redirect(url_for("auth.login"))
-
-    new_user = User(
-        email=email,
-        first_name=first_name,
-        last_name=last_name,
-        username=user_name,
-        password=hash_password(password),
-        is_merchant=True,
-    )
-    address = Address(country=country, city=city, phone=phone)
-    merchant = Merchant(user=new_user, merchant_address=address)
-    db.session.add(new_user)
+    
+    user = User(password=hash_password(password), is_merchant=True)
+    address = Address()
+    for name in USER_FIELDS:
+        if request.form.get(name) is not None:
+            setattr(user, name, request.form.get(name))
+            
+    for name in ADDRESS_FIELDS:
+        if request.form.get(name) is not None:
+            setattr(address, name, request.form.get(name))
+            
+    merchant = Merchant(user=user, merchant_address=address)
+    db.session.add(user)
     db.session.add(address)
     db.session.add(merchant)
     db.session.commit()
-
+    
+    flash("Account created Successfully.")
     return redirect(url_for("auth.login"))
 
 
@@ -95,8 +93,7 @@ def customer_signup():
         if current_user.is_authenticated:
             return redirect(url_for("products.get_products"))
         return render_template("auth/customer_signup.html")
-
-    error = None
+    
     email = request.form.get("email")
     user_name = request.form.get("username")
     password = request.form.get("password")
@@ -108,17 +105,17 @@ def customer_signup():
         or password is None
         or confirm_password is None
     ):
-        error = "Invalid data provided"
-        return redirect(url_for("auth.customer_signup"), error=error)
+        flash("Invalid data provided", "error")
+        return redirect(url_for("auth.customer_signup"))
     if not validate_email(email):
-        error = "Email provided not valid!"
-        return redirect(url_for("auth.customer_signup"), error=error)
+        flash("Email provided not valid!", "error")
+        return redirect(url_for("auth.customer_signup"))
     if password != confirm_password:
-        error = "Password and confirm password don't match."
-        return redirect(url_for("auth.customer_signup"), error=error)
+        flash("Password and confirm password don't match.", "error")
+        return redirect(url_for("auth.customer_signup"))
     if len(password) < 6:
-        error = "Password too short."
-        return redirect(url_for("auth.customer_signup"), error=error)
+        flash("Password too short.", "error")
+        return redirect(url_for("auth.customer_signup"))
 
     user = User.query.filter_by(
         email=email
@@ -139,7 +136,8 @@ def customer_signup():
     db.session.add(new_user)
     db.session.add(customer)
     db.session.commit()
-
+    
+    flash("Account created Successfully.")
     return redirect(url_for("auth.login"))
 
 
@@ -151,16 +149,15 @@ def login():
         if current_user.is_authenticated:
             return redirect(url_for("products.get_products"))
         return render_template("auth/login.html")
-
-    error = None
+    
     email = request.form.get("email")
     password = request.form.get("password")
 
     if email is None or password is None:
-        error = "Invalid data provided!"
+        flash("Invalid data provided!", "error")
         return redirect(url_for("auth.login"))
     if not validate_email(email):
-        error = "Email provided not valid!"
+        flash("Email provided not valid!", "error")
         return redirect(url_for("auth.login"))
     
     # if this returns a user, then the email already exists in database
@@ -169,17 +166,18 @@ def login():
     if (
         not user
     ):  # if a user is found, we want to redirect back to signup page so user can try again
-        error = "Invalid credentials provided!"
+        flash("Invalid credentials provided!", "error")
         return redirect(url_for("auth.login"))
     
     if user and verify_password(password, user.password):
         user.authenticated = True
         db.session.add(user)
         db.session.commit()
+        flash("User logged Successfully.")
         login_user(user, force=True, fresh=True, remember=True)
         return redirect(url_for("products.get_products"))
     else:
-        error = "Invalid credentials provided!"
+        flash("Invalid credentials provided!", "error")
         return redirect(url_for("auth.login"))
 
 
@@ -193,6 +191,7 @@ def logout():
     db.session.add(user)
     db.session.commit()
     logout_user()
+    flash("User logged out Successfully.")
     return redirect(url_for("products.get_products"))
 
 
