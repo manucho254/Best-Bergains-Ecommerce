@@ -1,6 +1,6 @@
 <nav>
   <label class="logo">Best<b style="color: white">Bargains</b></label>
-  <form class="search" method="GET" action="{{ url_for('products.get_products') }}">
+  <form class="search search-form">
     <input
       type="text"
       class="search-input"
@@ -12,9 +12,16 @@
   </form>
 
   <ul>
-    <li><a class="active" href="{{ url_for("products.get_products") }}">Home</a></li>
-    <li><a href="{{ url_for("products.get_products") }}">Shop</a></li>
-    <li><a href=""><i class="fa-solid fa-cart-shopping">()</i></a></li>
+    <li><a {% if request.endpoint  == 'home.home_page' %} 
+        class="nav-active" {% endif %}
+        href="{{ url_for("home.home_page") }}">
+        Home</a>
+    </li>
+    <li><a {% if request.endpoint  == 'products.get_products' %} 
+        class="nav-active" {% endif %}
+        href="{{ url_for("products.get_products") }}">Shop</a>
+    </li>
+    <li><a href=""><i class="fa-solid fa-cart-shopping">(0)</i></a></li>
     {% if current_user.is_authenticated %}
       {% if current_user.is_merchant %}
         <li><a href="{{ url_for('merchant.get_merchant', merchant_id=current_user.merchant_id)}}">{{ current_user.username }}</a></li>

@@ -160,6 +160,9 @@ def merchant_add_product(merchant_id):
 
     product = Product()
     product_image = ProductImage()
+    category = ProductCategory.query.filter_by(
+        id=request.form.get("category", "")
+    ).first()
 
     for name in PRODUCT_FIELDS:
         if request.form.get(name) is not None:
@@ -189,8 +192,10 @@ def merchant_add_product(merchant_id):
             categories=categories,
             merchant=merchant,
         )
-        
+
+    category.products.append(product)
     merchant.products.append(product)
+    db.session.add(category)
     db.session.add(merchant)
     db.session.add(product)
     db.session.commit()
@@ -226,7 +231,10 @@ def merchant_update_product(merchant_id, product_id):
         )
 
     product_image = ProductImage()
-
+    category = ProductCategory.query.filter_by(
+        id=request.form.get("category", "")
+    ).first()
+    
     for name in PRODUCT_FIELDS:
         if request.form.get(name) is not None:
             setattr(product, name, request.form.get(name))
@@ -253,7 +261,9 @@ def merchant_update_product(merchant_id, product_id):
 
         setattr(product, "images", product_image)
         db.session.add(product_image)
-
+        
+    if category:
+        category.products.append(product)
     db.session.add(product)
     db.session.commit()
 

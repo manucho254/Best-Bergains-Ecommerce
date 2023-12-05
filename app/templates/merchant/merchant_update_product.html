@@ -42,6 +42,17 @@
                           {% endif %}
                         />
                     </div>
+                    <div class="info-input w-100">
+                      <label class="mb-2">Product category:</label>
+                      <select class="form-select" name="category">
+                        <option value="" class="select-category">Choose here</option>
+                        {% for category in categories %}
+                        <option class="select-category" value="{{ category.id }}">
+                          {{ category.name }}
+                        </option>
+                        {% endfor %}
+                      </select>
+                    </div>
                   </div>
                   <h5 class="mb-3 mt-3 pb-3 border-bottom"> Product Image</h5>
                   <div class="d-flex gap-3">

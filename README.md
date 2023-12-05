@@ -20,7 +20,7 @@
 
 ##### run migrations and update db:
 
-    - flask --app run_app db migrate "migration message"
+    - flask --app run_app db migrate -m "migration message"
 
     - flask --app run_app db upgrade
 

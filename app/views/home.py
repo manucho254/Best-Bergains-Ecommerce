@@ -7,4 +7,4 @@ home = Blueprint("home", __name__)
 def home_page():
     """Landing page of the best bargains"""
     
-    return redirect(url_for("products.get_products"))
+    return render_template("index.html")

@@ -5,6 +5,7 @@ from flask import Blueprint, render_template, request
 
 from app.models.product import Product, ProductCategory
 
+from config import db
 
 products = Blueprint("products", __name__, url_prefix="/products")
 
@@ -15,18 +16,34 @@ def get_products():
 
     page = request.args.get("page", default=1, type=int)
     query = request.args.get("query", default="")
-    category = request.args.get("category", default="")
+    category_name = request.args.get("category", default="")
 
-    products = (
-        Product.query.filter(
-            category == category, Product.title.ilike(r"%{}%".format(query))
+    category = ProductCategory.query.filter_by(name=category_name).first()
+    if category:
+        products = (
+            Product.query.filter(
+                db.and_(
+                    Product.category_id == category.id,
+                    Product.title.ilike(r"%{}%".format(query)),
+                )
+            )
+            .order_by(Product.created_at)
+            .paginate(page=page, per_page=15)
         )
-        .order_by(Product.created_at)
-        .paginate(page=page, per_page=15)
-    )
-    
+    else:
+        products = (
+            Product.query.filter(
+                db.or_(
+                    Product.category_id == "",
+                    Product.title.ilike(r"%{}%".format(query)),
+                )
+            )
+            .order_by(Product.created_at)
+            .paginate(page=page, per_page=15)
+        )
+
     categories = ProductCategory.query.all()
-    
+
     return render_template(
         "product/products.html",
         products=products,

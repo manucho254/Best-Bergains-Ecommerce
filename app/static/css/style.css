@@ -36,6 +36,7 @@ nav ul li {
   margin: 0 2px;
 }
 
+
 nav ul li a {
   color: white;
   font-size: 17px;
@@ -44,12 +45,24 @@ nav ul li a {
   text-transform: uppercase;
 }
 
-nav ul li a.active,
-nav ul li a:hover {
-  background: black;
+nav ul li a:active {
+  background: black !important;
   transition: 3s;
   color: white !important;
 }
+
+nav ul li a:hover {
+  background: black !important;
+  transition: 3s;
+  color: white !important;
+}
+
+.nav-active {
+  background: black !important;
+  transition: 3s;
+  color: white !important;
+}
+
 form.search {
   display: flex;
   margin: auto 0;
@@ -213,6 +226,7 @@ footer .copyright {
 
 a {
   text-decoration: none !important;
+  cursor: pointer;
 }
 
 span {
@@ -257,4 +271,13 @@ span {
 .card-total {
   width: 300px;
   height: 200px;
+}
+
+.category {
+  cursor: pointer;
+}
+
+.category-active {
+  text-decoration: underline !important;
+  color: green !important;
 }

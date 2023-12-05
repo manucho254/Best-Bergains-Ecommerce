@@ -21,9 +21,7 @@ class Product(db.Model):
     images = db.relationship(
         "ProductImage", backref="product", lazy=True, uselist=False
     )
-    category = db.relationship(
-        "ProductCategory", backref="product", lazy=True, uselist=False
-    )
+    category_id = db.Column(db.String(100), db.ForeignKey("product_categories.id"))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -50,7 +48,9 @@ class ProductCategory(db.Model):
     __tablename__ = "product_categories"
     id = db.Column(db.String(100), primary_key=True, default=str(uuid4()))
     name = db.Column(db.String(100), nullable=False, unique=True)
-    product_id = db.Column(db.String(100), db.ForeignKey("products.id"))
+    products = db.relationship(
+        "Product", backref="product_categories", lazy=True
+    )
 
     def __repr__(self):
         return "<ProductCategory: {}>".format(self.name)

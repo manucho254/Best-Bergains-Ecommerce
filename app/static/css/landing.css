@@ -1,0 +1,38 @@
+section {
+    margin: 100px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+section .headline {
+    width: 100%;
+}
+
+section .headline  h1 {
+    font-size: 60px;
+    font-weight: bolder;
+    text-transform: capitalize;
+}
+
+section .headline  p {
+    font-size: 15px;
+    color: rgb(111, 110, 110);
+}
+
+section .headline a {
+    font-size: 30px;
+    color: rgb(222, 218, 218);
+    background-color: green;
+    padding: 10px 15px;
+    border-radius: 50px;
+    box-shadow: none;
+    text-align: center;
+}
+
+section .headline img {
+    width: 75%;
+    height: 400px;
+    border-radius: 5%;
+}
