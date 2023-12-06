@@ -15,7 +15,6 @@ from app.utils.constants import (
     MEDIA_PATH,
 )
 from app.utils.decorators import is_merchant
-from app.utils.validations import validate_extension
 from app.utils.helpers import process_image
 
 from config import db
