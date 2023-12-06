@@ -24,6 +24,17 @@
 
     - flask --app run_app db upgrade
 
+    NB:
+
+        - If you get ``` Target database is not up to date. ```
+        - when running the migrate command Run
+
+        Run:
+        > flask --app run_app db stamp head
+
+        - and the rerun the migration
+
+
 ##### Add new products to database:
     - flask --app run_app shell
 
@@ -33,8 +44,14 @@
 
 ###### Run application:
 
+    On windows:
+
     ``` flask -e ".env" --app run_app run --debug  ```
     - The .env should be path to your environment variables
+
+    On linux:
+    
+    - python3 -m run_app
  
 
 ##### Run tests:
