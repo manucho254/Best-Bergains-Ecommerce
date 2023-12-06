@@ -35,7 +35,7 @@
 
     ``` flask -e ".env" --app run_app run --debug  ```
     - The .env should be path to your environment variables
-
+ 
 
 ##### Run tests:
     - python -m unittest discover app/tests

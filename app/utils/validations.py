@@ -18,7 +18,7 @@ def validate_email(email: str) -> bool:
         return False
 
 
-def validate_extension(file_name: str) -> bool:
+def validate_img_extension(file_name: str) -> bool:
     """
     Args:
         file_name (str): name of file to check

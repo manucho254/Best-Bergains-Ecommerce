@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 let site_url = `${window.location.protocol}//${window.location.host}/products`;
 const search = document.querySelector(".search-form");
 const categories = document.querySelectorAll(".category"); // all categories in search page
@@ -5,6 +7,10 @@ const selectCategories = document.querySelectorAll(".select-category");
 const navLinks = document.querySelectorAll("nav ul li a");
 let category = "";
 let query = "";
+
+// setup storage
+window.sessionStorage.setItem("query", "");
+window.sessionStorage.setItem("category", "");
 
 if (search) {
   search.addEventListener("submit", (event) => {

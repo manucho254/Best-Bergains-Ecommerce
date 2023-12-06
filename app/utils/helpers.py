@@ -5,7 +5,7 @@ from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
 
 from app.utils.constants import MEDIA_PATH
-from app.utils.validations import validate_extension
+from app.utils.validations import validate_img_extension
 
 from werkzeug.datastructures import FileStorage
 
@@ -46,7 +46,7 @@ def process_image(file: FileStorage) -> dict:
         Returns:
             dict: an empty dict if file is not valid else return path and name of file
     """
-    if not validate_extension(file.filename):
+    if not validate_img_extension(file.filename):
         return {}
 
     timestamp = datetime.now().strftime("%d-%m-%Y")
