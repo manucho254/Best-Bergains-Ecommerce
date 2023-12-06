@@ -43,6 +43,8 @@ for name in categories:
         db.session.commit()
 
 
+current_user = User.query.filter_by(email="merchant@gmail.com").first()
+
 """ create new user
 """
 user = User(
@@ -64,7 +66,6 @@ merchant = Merchant(user=user, merchant_address=address)
 db.session.add(user)
 db.session.add(address)
 db.session.add(merchant)
-db.session.commit()
 
 req = requests.get("https://fakestoreapi.com/products")
 data = req.json()
@@ -82,9 +83,12 @@ for prod in data:
             description=prod.get("description"),
         )
         category.products.append(product)
+        merchant.products.append(product)
         try:
             db.session.add(category)
             db.session.add(product)
             db.session.commit()
         except Exception as e:
             pass
+
+db.session.commit()
