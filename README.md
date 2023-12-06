@@ -24,10 +24,21 @@
 
     - flask --app run_app db upgrade
 
+##### Add new products to database:
+    - flask --app run_app shell
+
+    - In the shell import the script add_products
+
+    - >>> import add_products
+
 ###### Run application:
 
     ``` flask -e ".env" --app run_app run --debug  ```
     - The .env should be path to your environment variables
+
+
+##### Run tests:
+    - python -m unittest discover app/tests
 
 ##### Tech Stack:
 

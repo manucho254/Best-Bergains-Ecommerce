@@ -7,7 +7,7 @@ from argon2.exceptions import VerifyMismatchError
 from app.utils.constants import MEDIA_PATH
 from app.utils.validations import validate_extension
 
-from app.models.product import ProductImage
+from werkzeug.datastructures import FileStorage
 
 import uuid
 import os
@@ -39,7 +39,7 @@ def verify_password(password: str, password_hash: str) -> bool:
         return False
 
 
-def process_image(file) -> dict:
+def process_image(file: FileStorage) -> dict:
     """ Image processing function for uploaded images
         Args:
             file (file object): file object to process
@@ -65,6 +65,7 @@ def process_image(file) -> dict:
     file.save(abs_path)
 
     # path where file is stored
+    # we do the replace for if the code is running on windows system
     path_to_file = os.path.join("products", timestamp, new_filename).replace("\\", "/")
 
     return {"name": new_filename, "path": path_to_file}
