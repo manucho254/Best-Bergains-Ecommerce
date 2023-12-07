@@ -106,7 +106,6 @@ for prod in data:
         category = ProductCategory.query.filter_by(name=category_name).first()
         product = Product(
             id=new_id,
-            merchant=merchant,
             title=prod.get("title"),
             price=prod.get("price"),
             description=prod.get("description"),

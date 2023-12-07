@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 {% block title %} Cart {% endblock %}
 {% block content %}
-  some products
+{% include "header.html" %}
+	<main>
+		<h1>Your Shopping Cart</h1>
+		<ul id="cart-items" class="cart-list">
+		</ul>
+		<div id="cart-total" class="cart-total">
+			<p>Total: $<span id="total-price">0.00</span></p>
+		</div>
+	</main>
+	<script src="cart.js"></script>
 {% endblock%}
