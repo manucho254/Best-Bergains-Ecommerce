@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %} Checkout {% endblock %}
+{% block content %}
+  {% include "header.html" %}
+  <div class="container mt-5">
+    <div class="card p-5">
+				<h1 class="border-bottom">Checkout</h1>
+				<ul id="checkout-items" class="cart-list">
+          
+        </ul>
+        <div class="d-flex justify-content-between mb-3 mt-3">
+					<p>Total</p>
+					<span id="cart-total">$ 0<span>
+				</div>
+    </div>
+  </div>
+{% endblock%}

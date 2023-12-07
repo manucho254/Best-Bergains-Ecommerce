@@ -42,6 +42,7 @@ def create_app():
     from app.views.customer import customers as customers_blueprint
     from app.views.merchant import merchants as merchants_blueprint
     from app.views.product import products as products_blueprint
+    from app.views.cart import cart as cart_blueprint
 
     # blueprint for auth routes in our app
     app.register_blueprint(auth_blueprint)
@@ -53,6 +54,8 @@ def create_app():
     app.register_blueprint(merchants_blueprint)
     # blueprint for product routes in our app
     app.register_blueprint(products_blueprint)
+    # blueprint for cart route in our app
+    app.register_blueprint(cart_blueprint)
     
     
     @app.route('/media/<path:filename>')

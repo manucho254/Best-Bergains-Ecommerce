@@ -5,17 +5,23 @@ const search = document.querySelector(".search-form");
 const categories = document.querySelectorAll(".category"); // all categories in search page
 const selectCategories = document.querySelectorAll(".select-category");
 const navLinks = document.querySelectorAll("nav ul li a");
-let category = "";
-let query = "";
+const alertBox = document.querySelector(".alert-box");
+let query = window.sessionStorage.getItem("query");
+let category = window.sessionStorage.getItem("category");
 
 // setup storage
-window.sessionStorage.setItem("query", "");
-window.sessionStorage.setItem("category", "");
+if (category === null && category !== "") {
+  window.sessionStorage.setItem("query", "");
+}
+if (query === null && query !== "") {
+  window.sessionStorage.setItem("category", "");
+}
 
 if (search) {
   search.addEventListener("submit", (event) => {
     event.preventDefault();
     const value = event.target.query.value;
+    console.log(value);
     window.sessionStorage.setItem("query", value);
     query = window.sessionStorage.getItem("query");
     category = window.sessionStorage.getItem("category");
@@ -88,3 +94,10 @@ selectCategories.forEach((cat) => {
     cat.setAttribute("selected", "selected");
   };
 });
+
+// remove alert box from dom
+if (alertBox) {
+  setTimeout(function () {
+    alertBox.style.display = "none";
+  }, 5000);
+}

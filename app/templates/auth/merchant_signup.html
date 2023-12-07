@@ -1,102 +1,106 @@
-{% extends "base.html"%} {% block title %} SignUp {% endblock %} {% block
-content %}
+{% extends "base.html"%}
+{% block title %} SignUp {% endblock %} 
+{% block content %}
 
-<div class="auth">
-  <div class="auth_form mt-5">
-    <h5 class="auth_form_title">Merchant SignUp</h5>
-    <form method="POST" action="/auth/merchant/signup">
-      <div class="d-flex gap-3">
-        <div>
-          <label>Email:</label>
+  <a href="{{ url_for('home.home_page') }}">
+    <label class="auth-logo">Best<b style="color: green">Bargains</b></label>
+  </a>
+  <div class="auth">
+    <div class="auth_form">
+      <h5 class="auth_form_title">Merchant SignUp</h5>
+      <form method="POST" action="/auth/merchant/signup">
+        <div class="d-flex gap-3">
+          <div class="w-50">
+            <label>Email:</label>
+            <input
+              class="form-control"
+              type="email"
+              name="email"
+              placeholder="example@gmail.com"
+              required
+            />
+          </div>
+          <div class="w-50">
+            <label>Username:</label>
+            <input
+              class="form-control"
+              type="text"
+              name="username"
+              placeholder="John12"
+              required
+            />
+          </div>
+        </div>
+        <div class="d-flex gap-3 ">
+          <div class="w-50">
+            <label>First Name:</label>
+            <input
+              class="form-control"
+              type="text"
+              name="first_name"
+              placeholder="John"
+              required
+            />
+          </div>
+          <div class="w-50">
+            <label>Last Name:</label>
+            <input
+              class="form-control"
+              type="text"
+              name="last_name"
+              placeholder="Doe"
+              required
+            />
+          </div>
+        </div>
+        <div class="d-flex gap-3">
+          <div class="w-50">
+            <label>Country:</label>
+            <input
+              class="form-control"
+              type="text"
+              name="country"
+              placeholder="Kenya"
+              required
+            />
+          </div>
+          <div class="w-50">
+            <label>City:</label>
+            <input
+              class="form-control"
+              type="text"
+              name="city"
+              placeholder="Nairobi"
+              required
+            />
+          </div>
+        </div>
+        <div class="auth_form_input">
+          <label>Phone:</label>
+          <input type="text" name="phone" placeholder="+25470000000" required />
+        </div>
+        <div class="auth_form_input">
+          <label>Password:</label>
+          <input type="password" name="password" placeholder="******" required />
+        </div>
+        <div class="auth_form_input">
+          <label>Confirm Password:</label>
           <input
-            class="form-control"
-            type="email"
-            name="email"
-            placeholder="example@gmail.com"
+            type="password"
+            name="confirm_password"
+            placeholder="******"
             required
           />
         </div>
-        <div>
-          <label>Username:</label>
-          <input
-            class="form-control"
-            type="text"
-            name="username"
-            placeholder="John12"
-            required
-          />
+        <div class="d-flex flex-column">
+          <span>
+            Already a user?
+            <a class="text-dark " href="{{ url_for('auth.login') }}">Sign In</a>
+          </span>
+          <button type="submit" class="button mt-3">Signup</button>
         </div>
-      </div>
-      <div class="d-flex gap-3">
-        <div>
-          <label>First Name:</label>
-          <input
-            class="form-control"
-            type="text"
-            name="first_name"
-            placeholder="John"
-            required
-          />
-        </div>
-        <div>
-          <label>Last Name:</label>
-          <input
-            class="form-control"
-            type="text"
-            name="last_name"
-            placeholder="Doe"
-            required
-          />
-        </div>
-      </div>
-      <div class="d-flex gap-3">
-        <div>
-          <label>Country:</label>
-          <input
-            class="form-control"
-            type="text"
-            name="country"
-            placeholder="Kenya"
-            required
-          />
-        </div>
-        <div>
-          <label>City:</label>
-          <input
-            class="form-control"
-            type="text"
-            name="city"
-            placeholder="Nairobi"
-            required
-          />
-        </div>
-      </div>
-      <div class="auth_form_input">
-        <label>Phone:</label>
-        <input type="text" name="phone" placeholder="+25470000000" required />
-      </div>
-      <div class="auth_form_input">
-        <label>Password:</label>
-        <input type="password" name="password" placeholder="******" required />
-      </div>
-      <div class="auth_form_input">
-        <label>Confirm Password:</label>
-        <input
-          type="password"
-          name="confirm_password"
-          placeholder="******"
-          required
-        />
-      </div>
-      <div class="d-flex flex-column">
-        <span>
-          Already a user?
-          <a class="text-dark " href="{{ url_for('auth.login') }}">Sign In</a>
-        </span>
-        <button type="submit" class="button mt-3">Signup</button>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
 
 {% endblock %}

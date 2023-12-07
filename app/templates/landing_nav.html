@@ -1,0 +1,33 @@
+<nav class="bg-light">
+    <a href="{{ url_for('home.home_page') }}">
+        <label class="logo">Best<b style="color: green">Bargains</b></label>
+    </a>
+    <ul class="text-dark">
+        <li><a {% if request.endpoint  == 'home.home_page' %} 
+            class="nav-active" {% endif %}
+            href="{{ url_for("home.home_page") }}">
+            Home</a>
+        </li>
+        <li><a class="text-dark" {% if request.endpoint  == 'products.get_products' %} 
+            class="nav-active" {% endif %}
+            href="{{ url_for("products.get_products") }}">Shop</a>
+        </li>
+        <li><a {% if request.endpoint  == 'cart.cart_items' %} 
+                class="nav-active" {% endif %}
+                class="text-dark" 
+                href="{{ url_for("cart.cart_items") }}">
+            <i class="fa-solid fa-cart-shopping">
+            <span id="shopping-cart-total"><span>
+            </i></a>
+          </li>
+        {% if current_user.is_authenticated %}
+          {% if current_user.is_merchant %}
+            <li><a class="text-dark" href="{{ url_for('merchant.get_merchant', merchant_id=current_user.merchant_id)}}">{{ current_user.username }}</a></li>
+          {% else %}
+            <li><a  class="text-dark"href="{{ url_for('customer.get_customer', customer_id=current_user.customer_id)}}">{{ current_user.username }}</a></li>
+          {% endif %}
+        {% else %}
+            <li><a class="text-dark" href="{{  url_for("auth.login") }}">Sign In</a></li>
+        {% endif %}
+      </ul>
+</nav>

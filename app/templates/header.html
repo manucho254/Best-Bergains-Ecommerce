@@ -1,5 +1,7 @@
 <nav>
-  <label class="logo">Best<b style="color: white">Bargains</b></label>
+  <a href="{{ url_for('home.home_page') }}">
+      <label class="logo">Best<b style="color: white">Bargains</b></label>
+  </a>
   <form class="search search-form">
     <input
       type="text"
@@ -21,7 +23,13 @@
         class="nav-active" {% endif %}
         href="{{ url_for("products.get_products") }}">Shop</a>
     </li>
-    <li><a href=""><i class="fa-solid fa-cart-shopping">(0)</i></a></li>
+    <li><a {% if request.endpoint  == 'cart.cart_items' %} 
+        class="nav-active" {% endif %}
+        href="{{ url_for("cart.cart_items") }}">
+      <i class="fa-solid fa-cart-shopping">
+      <span id="shopping-cart-total"><span>
+      </i></a>
+    </li>
     {% if current_user.is_authenticated %}
       {% if current_user.is_merchant %}
         <li><a href="{{ url_for('merchant.get_merchant', merchant_id=current_user.merchant_id)}}">{{ current_user.username }}</a></li>

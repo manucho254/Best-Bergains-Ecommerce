@@ -34,30 +34,18 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
-    {% with messages = get_flashed_messages() %} {% if messages %}
-    <div
-      role="alert"
-      aria-live="assertive"
-      aria-atomic="true"
-      class="toast"
-      data-bs-autohide="true"
-    >
-      <div class="toast-header">
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="toast"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="toast-body">
-        {% for message in messages %}
-        <p>{{ message }}</p>
-        {% endfor %}
-      </div>
-    </div>
-    {% endif %} {% endwith %} {% block content %}{% endblock%}
+  <body id="body-element">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert-box">
+            {% for message in messages %}
+              <span>{{ message }}</span>
+            {% endfor %}
+        </div>
+      {% endif %} 
+    {% endwith %} 
+    <div id="cart-alert"></div>
+    {% block content %}{% endblock%}
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

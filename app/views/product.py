@@ -57,12 +57,3 @@ def get_product(product_id):
     product = Product.query.filter_by(id=product_id).first()
 
     return render_template("product/product_detail.html", product=product)
-
-
-@products.route("/search", methods=["POST"], strict_slashes=False)
-def filter_product():
-    """search and filter products"""
-    query = request.args.get("query", default="")
-
-    products = Product.query.order_by(Product.created_at).paginate(page=1, per_page=15)
-    return render_template("product/products.html", products=products)

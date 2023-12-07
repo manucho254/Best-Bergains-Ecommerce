@@ -1,31 +1,7 @@
 {% extends "base.html"%}
 {% block title %} Home {% endblock %}
 {% block content %}
-    <nav class="bg-light">
-        <label class="logo">Best<b style="color: green">Bargains</b></label>
-        <ul class="text-dark">
-            <li><a {% if request.endpoint  == 'home.home_page' %} 
-                class="nav-active" {% endif %}
-                href="{{ url_for("home.home_page") }}">
-                Home</a>
-            </li>
-            <li><a class="text-dark" {% if request.endpoint  == 'products.get_products' %} 
-                class="nav-active" {% endif %}
-                href="{{ url_for("products.get_products") }}">Shop</a>
-            </li>
-            <li><a class="text-dark text-center" href=""><i class="fa-solid fa-cart-shopping">(0)</i></a>
-            </li>
-            {% if current_user.is_authenticated %}
-              {% if current_user.is_merchant %}
-                <li><a class="text-dark" href="{{ url_for('merchant.get_merchant', merchant_id=current_user.merchant_id)}}">{{ current_user.username }}</a></li>
-              {% else %}
-                <li><a  class="text-dark"href="{{ url_for('customer.get_customer', customer_id=current_user.customer_id)}}">{{ current_user.username }}</a></li>
-              {% endif %}
-            {% else %}
-                <li><a class="text-dark" href="{{  url_for("auth.login") }}">Sign In</a></li>
-            {% endif %}
-          </ul>
-    </nav>
+    {% include "landing_nav.html" %}
     <section>
         <div class="headline">  
             <div class="d-flex gap-5">  
