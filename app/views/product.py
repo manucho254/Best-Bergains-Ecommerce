@@ -28,7 +28,7 @@ def get_products():
                 )
             )
             .order_by(Product.created_at)
-            .paginate(page=page, per_page=15)
+            .paginate(page=page, per_page=12)
         )
     else:
         products = (
@@ -39,7 +39,7 @@ def get_products():
                 )
             )
             .order_by(Product.created_at)
-            .paginate(page=page, per_page=15)
+            .paginate(page=page, per_page=12)
         )
 
     categories = ProductCategory.query.all()
