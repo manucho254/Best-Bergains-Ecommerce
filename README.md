@@ -1,5 +1,7 @@
 ## Best Bargains Ecommerce
 
+⭐ Star us on GitHub — it motivates us a lot!
+
 - Best bargains is a simple yet functional ecommerce website where users from different parts of the world can buy and sell their products.
 
 <img width="100%" height="400px" src="./app/static/images/products.png">
