@@ -8,7 +8,7 @@ Live Project Link:
     - http://app.bestbargainsecom.me
 
 
-#### Functionality
+### Functionality
 
 Authentication:
 
