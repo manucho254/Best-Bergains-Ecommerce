@@ -1,12 +1,11 @@
 ## Best Bargains Ecommerce
 
-- Ecommerce website that allows different vendors to sell their products on the platform.
+- Best bargains is a simple yet functional ecommerce website where users from different parts of the world can buy and sell their products.
 
 <img width="100%" height="400px" src="./app/static/images/products.png">
 
 Live Project Link:
     - http://app.bestbargainsecom.me
-
 
 ### Functionality
 
@@ -33,6 +32,24 @@ User Stories:
     ❌ Payment Integration
     ❌ Merchant customer list in dashboard
     ❌ Merchant order List in dashboard
+
+
+#### Tech Stack:
+
+Frontend
+
+* Bootstrap
+* Html 
+* Css
+* Javascript
+
+Backend and Deployment:
+
+* Python3
+* Flask
+* mysql database
+* nginx - reverse proxy
+* gunicorn - uwsgi server
 
 
 ### setup project locally
@@ -91,10 +108,10 @@ User Stories:
 
     - python -m unittest discover app/tests
 
-##### Tech Stack:
-
-` Python3, Flask, Bootstrap, Html, Css, Javascript`
-
 ##### Help scripts:
 
-    - Test the code style of
+    - Test the code for pep 
+    > ./check_style
+
+    - Run all tests
+    > ./run_tests
