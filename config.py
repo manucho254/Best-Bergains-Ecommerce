@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+""" module for all application configuration settings
+"""
 from flask import Flask, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager

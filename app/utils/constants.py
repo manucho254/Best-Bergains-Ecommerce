@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+""" module to store all constant variables
+"""
 
 import os
 

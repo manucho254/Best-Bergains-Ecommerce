@@ -17,7 +17,7 @@ auth = Blueprint("auth", __name__, url_prefix="/auth")
 
 @login_manager.user_loader
 def load_user(user_id):
-    """since the user_id is just the primary
+    """ since the user_id is just the primary
     key of our user table, use it in the query for the user
     """
     return User.query.filter_by(email=user_id).first()
@@ -31,8 +31,7 @@ def merchant_signup():
         if current_user.is_authenticated:
             return redirect(url_for("products.get_products"))
         return render_template("auth/merchant_signup.html")
-
-    error = None
+    
     email = request.form.get("email")
     user_name = request.form.get("username")
     password = request.form.get("password")

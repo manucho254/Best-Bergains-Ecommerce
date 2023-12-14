@@ -12,7 +12,7 @@ products = Blueprint("products", __name__, url_prefix="/products")
 
 @products.route("/", methods=["GET", "POST"], strict_slashes=False)
 def get_products():
-    """Get products"""
+    """ Get products"""
 
     page = request.args.get("page", default=1, type=int)
     query = request.args.get("query", default="")

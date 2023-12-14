@@ -16,7 +16,7 @@ items = db.Table(
 
 
 class Order(db.Model):
-    """Class Order"""
+    """ Order Model """
 
     __tablename__ = "orders"
     id = db.Column(db.String(100), primary_key=True, default=str(uuid4()))
@@ -43,7 +43,7 @@ class Order(db.Model):
 
 
 class Item(db.Model):
-    """Order item"""
+    """Order Item Model """
 
     __tablename__ = "items"
     id = db.Column(db.String(100), primary_key=True, default=str(uuid4()))

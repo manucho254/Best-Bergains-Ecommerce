@@ -1,5 +1,3 @@
-#!/usr/bin/node
-
 let site_url = `${window.location.protocol}//${window.location.host}/products`;
 const search = document.querySelector(".search-form");
 const categories = document.querySelectorAll(".category"); // all categories in search page
@@ -17,11 +15,11 @@ if (query === null && query !== "") {
   window.sessionStorage.setItem("category", "");
 }
 
+// search logic
 if (search) {
   search.addEventListener("submit", (event) => {
     event.preventDefault();
     const value = event.target.query.value;
-    console.log(value);
     window.sessionStorage.setItem("query", value);
     query = window.sessionStorage.getItem("query");
     category = window.sessionStorage.getItem("category");

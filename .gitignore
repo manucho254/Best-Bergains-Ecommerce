@@ -122,6 +122,10 @@ celerybeat.pid
 # test local scripts
 test_code.py
 
+/media
+
+secret*
+
 prod_env.py
 
 # Environments

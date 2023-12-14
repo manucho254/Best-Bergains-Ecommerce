@@ -8,4 +8,3 @@ with open('.env', 'a') as env_file:
         env_file.write(f'\nSECRET_KEY="{secret_key}"\n')
 
         print("Secret key generated and added to .env file.")
-

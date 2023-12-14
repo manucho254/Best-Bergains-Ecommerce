@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" module to run flask application """
 
 from config import create_app
 

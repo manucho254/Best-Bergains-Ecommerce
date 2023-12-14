@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" module to get environment variable
+""" module to get environment variables
 """
 
 from dotenv import load_dotenv
@@ -17,4 +17,5 @@ DB_NAME = getenv("DB_NAME")
 # mysql db uri
 DB_URI = "mysql://{}:{}@{}:{}/{}".format(DB_USER, DB_PWD, DB_HOST, DB_PORT, DB_NAME)
 
+# get secret key
 SECRET_KEY = getenv("SECRET_KEY")

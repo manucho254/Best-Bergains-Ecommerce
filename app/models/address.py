@@ -8,7 +8,7 @@ from uuid import uuid4
 
 
 class Address(db.Model):
-    """ """
+    """ Address Model """
 
     __tablename__ = "address"
     id = db.Column(db.String(100), primary_key=True, default=str(uuid4()))

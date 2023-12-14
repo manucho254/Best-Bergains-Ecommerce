@@ -8,7 +8,7 @@ from uuid import uuid4
 
 
 class Product(db.Model):
-    """Class Product"""
+    """ Product Model """
 
     __tablename__ = "products"
     id = db.Column(db.String(100), primary_key=True, default=str(uuid4()))
