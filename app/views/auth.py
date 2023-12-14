@@ -9,15 +9,16 @@ from app.models.address import Address
 from app.models.customer import Customer
 from app.models.merchant import Merchant
 from app.utils.helpers import hash_password, verify_password
-from app.utils.constants import USER_FIELDS, ADDRESS_FIELDS
+from app.utils.constants import USER_MODEL_FIELDS, ADDRESS_MODEL_FIELDS
 
 from config import db, login_manager
 
 auth = Blueprint("auth", __name__, url_prefix="/auth")
 
+
 @login_manager.user_loader
 def load_user(user_id):
-    """ since the user_id is just the primary
+    """since the user_id is just the primary
     key of our user table, use it in the query for the user
     """
     return User.query.filter_by(email=user_id).first()
@@ -31,7 +32,7 @@ def merchant_signup():
         if current_user.is_authenticated:
             return redirect(url_for("products.get_products"))
         return render_template("auth/merchant_signup.html")
-    
+
     email = request.form.get("email")
     user_name = request.form.get("username")
     password = request.form.get("password")
@@ -63,23 +64,23 @@ def merchant_signup():
         user
     ):  # if a user is found, we want to redirect back to signup page so user can try again
         return redirect(url_for("auth.login"))
-    
+
     user = User(password=hash_password(password), is_merchant=True)
     address = Address()
-    for name in USER_FIELDS:
+    for name in USER_MODEL_FIELDS:
         if request.form.get(name) is not None:
             setattr(user, name, request.form.get(name))
-            
-    for name in ADDRESS_FIELDS:
+
+    for name in ADDRESS_MODEL_FIELDS:
         if request.form.get(name) is not None:
             setattr(address, name, request.form.get(name))
-            
+
     merchant = Merchant(user=user, merchant_address=address)
     db.session.add(user)
     db.session.add(address)
     db.session.add(merchant)
     db.session.commit()
-    
+
     flash("Account created Successfully.")
     return redirect(url_for("auth.login"))
 
@@ -92,7 +93,7 @@ def customer_signup():
         if current_user.is_authenticated:
             return redirect(url_for("products.get_products"))
         return render_template("auth/customer_signup.html")
-    
+
     email = request.form.get("email")
     user_name = request.form.get("username")
     password = request.form.get("password")
@@ -135,7 +136,7 @@ def customer_signup():
     db.session.add(new_user)
     db.session.add(customer)
     db.session.commit()
-    
+
     flash("Account created Successfully.")
     return redirect(url_for("auth.login"))
 
@@ -143,12 +144,12 @@ def customer_signup():
 @auth.route("/login", methods=["GET", "POST"], strict_slashes=False)
 def login():
     """Authenticate user"""
-    
+
     if request.method == "GET":
         if current_user.is_authenticated:
             return redirect(url_for("products.get_products"))
         return render_template("auth/login.html")
-    
+
     email = request.form.get("email")
     password = request.form.get("password")
 
@@ -158,16 +159,16 @@ def login():
     if not validate_email(email):
         flash("Email provided not valid!", "error")
         return redirect(url_for("auth.login"))
-    
+
     # if this returns a user, then the email already exists in database
     user = User.query.filter_by(email=email).first()
-    
+
     if (
         not user
     ):  # if a user is found, we want to redirect back to signup page so user can try again
         flash("Invalid credentials provided!", "error")
         return redirect(url_for("auth.login"))
-    
+
     if user and verify_password(password, user.password):
         user.authenticated = True
         db.session.add(user)
@@ -184,7 +185,7 @@ def login():
 @login_required
 def logout():
     """Logout user"""
-    
+
     user = current_user
     user.authenticated = False
     db.session.add(user)

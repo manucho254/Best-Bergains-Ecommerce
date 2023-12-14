@@ -8,7 +8,7 @@ from app.models.user import User
 from app.models.order import Order
 from app.models.address import Address
 from app.utils.decorators import is_customer
-from app.utils.constants import USER_FIELDS, ADDRESS_FIELDS
+from app.utils.constants import USER_MODEL_FIELDS, ADDRESS_MODEL_FIELDS
 
 from config import db
 
@@ -37,31 +37,30 @@ def update_customer(customer_id):
         customer_id (string): customer id
     """
     customer = Customer.query.filter_by(id=customer_id).first()
-    
+
     if request.method == "GET":
         return render_template("customer/customer_update.html", customer=customer)
-    
+
     address = Address()
-    for name in USER_FIELDS:
+    for name in USER_MODEL_FIELDS:
         if request.form.get(name) is not None:
             setattr(customer.user, name, request.form.get(name))
-            
-    for name in ADDRESS_FIELDS:
+
+    for name in ADDRESS_MODEL_FIELDS:
         if request.form.get(name) is not None:
             if customer.customer_address:
                 setattr(customer.customer_address, name, request.form.get(name))
             else:
                 setattr(address, name, request.form.get(name))
-                
+
     if customer.customer_address is None:
         db.session.add(address)
         setattr(customer, "customer_address", address)
-        
+
     db.session.add(customer)
     db.session.commit()
     flash("Customer updated successfully.")
-    return redirect(url_for('customer.update_customer', customer_id=customer.id))
-    
+    return redirect(url_for("customer.update_customer", customer_id=customer.id))
 
 
 @customers.route("/<customer_id>/delete", methods=["POST"], strict_slashes=False)

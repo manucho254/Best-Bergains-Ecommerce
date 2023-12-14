@@ -8,10 +8,9 @@ from app.models.product import Product, ProductCategory, ProductImage
 from app.models.order import Order
 from app.models.address import Address
 from app.utils.constants import (
-    USER_FIELDS,
-    ADDRESS_FIELDS,
-    PRODUCT_FIELDS,
-    PRODUCT_IMAGE_FIELDS,
+    USER_MODEL_FIELDS,
+    ADDRESS_MODEL_FIELDS,
+    PRODUCT_MODEL_FIELDS,
     MEDIA_PATH,
 )
 from app.utils.decorators import is_merchant
@@ -54,11 +53,11 @@ def update_merchant(merchant_id):
     if request.method == "GET":
         return render_template("merchant/merchant_update.html", merchant=merchant)
 
-    for name in USER_FIELDS:
+    for name in USER_MODEL_FIELDS:
         if request.form.get(name) is not None:
             setattr(merchant.user, name, request.form.get(name))
 
-    for name in ADDRESS_FIELDS:
+    for name in ADDRESS_MODEL_FIELDS:
         if request.form.get(name) is not None:
             setattr(merchant.merchant_address, name, request.form.get(name))
 
@@ -163,7 +162,7 @@ def merchant_add_product(merchant_id):
         id=request.form.get("category", "")
     ).first()
 
-    for name in PRODUCT_FIELDS:
+    for name in PRODUCT_MODEL_FIELDS:
         if request.form.get(name) is not None:
             setattr(product, name, request.form.get(name))
 
@@ -233,8 +232,8 @@ def merchant_update_product(merchant_id, product_id):
     category = ProductCategory.query.filter_by(
         id=request.form.get("category", "")
     ).first()
-    
-    for name in PRODUCT_FIELDS:
+
+    for name in PRODUCT_MODEL_FIELDS:
         if request.form.get(name) is not None:
             setattr(product, name, request.form.get(name))
 
@@ -260,7 +259,7 @@ def merchant_update_product(merchant_id, product_id):
 
         setattr(product, "images", product_image)
         db.session.add(product_image)
-        
+
     if category:
         category.products.append(product)
     db.session.add(product)
